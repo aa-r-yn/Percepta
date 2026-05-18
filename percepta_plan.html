@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Percepta — Project Plan</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f4f0; color: #1a1a18; padding: 24px 16px; }
+  .container { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 22px; font-weight: 600; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: #6b6a63; margin-bottom: 24px; }
+  .section-label { font-size: 11px; font-weight: 600; color: #9a9890; text-transform: uppercase; letter-spacing: 0.07em; margin: 20px 0 8px; }
+
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 4px; }
+  .info-card { background: #fff; border: 1px solid #e5e3db; border-radius: 10px; padding: 10px 12px; }
+  .info-card .label { font-size: 11px; color: #9a9890; margin-bottom: 3px; }
+  .info-card .value { font-size: 13px; font-weight: 500; line-height: 1.5; }
+
+  .dataset-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .ds-badge { font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .ds-primary { background: #c0dd97; color: #27500a; }
+  .ds-secondary { background: #b5d4f4; color: #0c447c; }
+  .ds-supplement { background: #cecbf6; color: #3c3489; }
+  .ds-text { font-size: 13px; font-weight: 500; line-height: 1.5; }
+  .ds-sub { font-size: 12px; color: #6b6a63; margin-top: 2px; line-height: 1.5; }
+
+  .arch-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 4px; }
+  .arch-box { flex: 1; min-width: 72px; background: #fff; border: 1px solid #e5e3db; border-radius: 8px; padding: 8px 10px; text-align: center; }
+  .arch-box .al { font-size: 12px; font-weight: 600; }
+  .arch-box .as { font-size: 11px; color: #6b6a63; margin-top: 2px; }
+  .arrow-r { color: #c2c0b6; font-size: 14px; flex-shrink: 0; }
+
+  .stack-tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; margin: 2px; background: #fff; color: #6b6a63; border: 1px solid #e5e3db; }
+
+  .phase { margin-bottom: 12px; border-radius: 12px; overflow: hidden; border: 1px solid #e5e3db; background: #fff; }
+  .phase-header { padding: 11px 14px; display: flex; align-items: center; gap: 10px; }
+  .phase-badge { font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 20px; white-space: nowrap; }
+  .phase-title { font-size: 14px; font-weight: 600; flex: 1; }
+  .phase-sub { font-size: 12px; color: #6b6a63; }
+  .phase-body { padding: 0 14px 12px; }
+  .task { display: flex; gap: 10px; padding: 7px 0; border-bottom: 1px solid #f0ede6; align-items: flex-start; }
+  .task:last-of-type { border-bottom: none; }
+  .task-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 7px; flex-shrink: 0; }
+  .task-text { font-size: 13px; line-height: 1.5; }
+  .task-sub { font-size: 12px; color: #6b6a63; margin-top: 2px; line-height: 1.5; }
+  .chips { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px; }
+  .chip { font-size: 11px; padding: 2px 8px; border-radius: 12px; background: #f5f4f0; color: #6b6a63; border: 1px solid #e5e3db; }
+
+  .risk-row { display: flex; gap: 8px; margin-bottom: 6px; align-items: flex-start; }
+  .risk-tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 1px; }
+  .risk-high { background: #f7c1c1; color: #791f1f; }
+  .risk-med { background: #fac775; color: #633806; }
+  .risk-text { font-size: 12px; color: #4a4a47; line-height: 1.6; }
+
+  .p1 .phase-header { background: #e6f1fb; } .p1 .phase-badge { background: #b5d4f4; color: #0c447c; } .p1 .task-dot { background: #378add; }
+  .p2 .phase-header { background: #eaf3de; } .p2 .phase-badge { background: #c0dd97; color: #27500a; } .p2 .task-dot { background: #639922; }
+  .p3 .phase-header { background: #faeeda; } .p3 .phase-badge { background: #fac775; color: #633806; } .p3 .task-dot { background: #ba7517; }
+  .p4 .phase-header { background: #eeedfe; } .p4 .phase-badge { background: #cecbf6; color: #3c3489; } .p4 .task-dot { background: #7f77dd; }
+  .p5 .phase-header { background: #faece7; } .p5 .phase-badge { background: #f5c4b3; color: #712b13; } .p5 .task-dot { background: #d85a30; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Percepta — Public Safety AI System</h1>
+  <p class="subtitle">Real-time weapon detection + crowd anomaly · Portfolio project · Aug 2026 graduation target</p>
+
+  <div class="section-label">Project snapshot</div>
+  <div class="info-grid">
+    <div class="info-card"><div class="label">Scope</div><div class="value">Weapon detection + crowd behaviour anomaly in public spaces</div></div>
+    <div class="info-card"><div class="label">Target context</div><div class="value">Airports, shopping centres, transit — CCTV-style footage</div></div>
+    <div class="info-card"><div class="label">Timeline</div><div class="value">8 weeks · ~10–12 hrs/week</div></div>
+    <div class="info-card"><div class="label">Success criteria</div><div class="value">Working end-to-end demo · mAP &gt; 0.70 · Public deployment URL</div></div>
+    <div class="info-card"><div class="label">Data strategy</div><div class="value">Pre-existing datasets only — no custom collection</div></div>
+    <div class="info-card"><div class="label">External APIs</div><div class="value">None for MVP — fully self-contained system</div></div>
+  </div>
+
+  <div class="section-label">Locked-in datasets</div>
+  <div class="dataset-row">
+    <span class="ds-badge ds-primary">Primary</span>
+    <div><div class="ds-text">Simuletic CCTV Knife Detection Dataset</div><div class="ds-sub">Synthetic CCTV-style · airports, malls, walkways, transit · classes: person, knife · YOLO format · 1,000+ images</div></div>
+  </div>
+  <div class="dataset-row">
+    <span class="ds-badge ds-secondary">Secondary</span>
+    <div><div class="ds-text">yolov7test Weapon Detection (RoboFlow)</div><div class="ds-sub">~9,700 images · classes: knife, handgun, pistol, rifle, person · broadens weapon variety and volume</div></div>
+  </div>
+  <div class="dataset-row">
+    <span class="ds-badge ds-supplement">Supplement</span>
+    <div><div class="ds-text">Violence &amp; Weapon Detection dataset (RoboFlow)</div><div class="ds-sub">~4,150 images · person, weapon, criminal · adds behavioural context for anomaly logic</div></div>
+  </div>
+
+  <div class="section-label">System architecture</div>
+  <div class="arch-row">
+    <div class="arch-box"><div class="al">Video input</div><div class="as">CCTV / file</div></div>
+    <div class="arrow-r">→</div>
+    <div class="arch-box"><div class="al">Detection</div><div class="as">YOLOv8</div></div>
+    <div class="arrow-r">→</div>
+    <div class="arch-box"><div class="al">Tracking</div><div class="as">DeepSORT</div></div>
+    <div class="arrow-r">→</div>
+    <div class="arch-box"><div class="al">Risk engine</div><div class="as">Rule logic</div></div>
+    <div class="arrow-r">→</div>
+    <div class="arch-box"><div class="al">Alert + log</div><div class="as">FastAPI + PG</div></div>
+    <div class="arrow-r">→</div>
+    <div class="arch-box"><div class="al">Dashboard</div><div class="as">Streamlit</div></div>
+  </div>
+
+  <div class="section-label">Tech stack</div>
+  <div style="margin-bottom:16px">
+    <span class="stack-tag">Python</span><span class="stack-tag">YOLOv8</span><span class="stack-tag">OpenCV</span><span class="stack-tag">DeepSORT</span><span class="stack-tag">FastAPI</span><span class="stack-tag">PostgreSQL</span><span class="stack-tag">Streamlit</span><span class="stack-tag">Docker</span><span class="stack-tag">AWS / GCP</span><span class="stack-tag">GitHub</span>
+  </div>
+
+  <div class="section-label">8-week build plan</div>
+
+  <div class="phase p1">
+    <div class="phase-header"><span class="phase-badge">Week 1</span><span class="phase-title">Foundation</span><span class="phase-sub">Env · datasets · repo</span></div>
+    <div class="phase-body">
+      <div class="task"><div class="task-dot"></div><div><div class="task-text">Set up Python env — install YOLOv8, OpenCV, DeepSORT, FastAPI</div><div class="task-sub">Lock all versions in requirements.txt from day one</div></div></div>
+      <div class="task"><div class="task-dot"></div><div><div class="task-text">Download and merge all three datasets from RoboFlow Universe</div><div class="task-sub">Inspect class distribution, remove duplicates, export unified YOLOv8 format</div></div></div>
+      <div class="task"><div class="task-dot"></div><div><div class="task-text">Scaffold GitHub repo with clean folder structure</div><div class="task-sub">src/ · data/ · models/ · logs/ · dashboard/ · docs/ · docker/</div></div></div>
+      <div class="task"><div class="task-dot"></div><div><div class="task-text">Confirm GPU access — test a short training run</div><div class="task-sub">Google Colab Pro (~$12/mo) or Kaggle free T4 hours — decide this week</div></div></div>
+      <div class="chips"><span class="chip">Repo live</span><span class="chip">Merged dataset</span><span class="chip">GPU confirmed</span></div>
+    </div>
+  </div>
+
+  <div class="phase p2">
+    <div class="phase-header"><span class="phase-badge">Week 2–3</span><span class="phase-title">Detection model</span><span class="phase-sub">Train · evaluate · iterate</span></div>
+    <div class="phase-body">
+      <div class="task"><div class="task-dot"></div><div><div class="task-text">Fine-tune YOLOv8n on merged dataset — classes: knife, handgun, person</div><div class="task-sub">Start with YOLOv8n for fast iteration — upgrade to YOLOv8s if accuracy is insufficient</div></div></div>
+      <div class="task"><div class="task-dot"></div><div><div class="task-text">Evaluate: mAP@0.5, precision, recall per class</div><div class="task-sub">Target mAP &gt; 0.70 — document results in a model card</div></div></div>
+      <div class="task"><div class="task-dot"></div><div><div class="task-text">Run inference on CCTV-style test clips — audit false positives heavily</div><div class="task-sub">FP rate is the most critical metric for a public safety context</div></div></div>
+      <div class="task"><div class="task-dot"></div><div><div class="task-text">Save best.pt checkpoint, version it in the repo</div></div></div>
+      <div class="chips"><span class="chip">Trained model</span><span class="chip">Eval metrics</span><span class="chip">Model card</span><span class="chip">Test inference</span></div>
+    </div>
+  </div>
+
+  <div class="phase p3">
+    <div class="phase-header"><span class="phase-badge">Week 4</span><span class="phase-title">Tracking + crowd anomaly</span><span class="phase-sub">DeepSORT · behaviour signals</span></div>
+    <div class="phase-body">
+      <div class="task"><div class="task-dot"></div><div><div class="task-text">Integrate DeepSORT — assign persistent IDs across frames</div><div class="task-sub">Track each person: position history, speed, direction vector</div></div></div>
+      <div class="task"><div class="task-dot"></div><div><div class="task-text">Implement crowd anomaly signals</div><div class="task-sub">Sudden dispersal (scattering), running detection, dense panic clustering</div></div></div>
+      <div class="task"><div class="task-dot"></div><div><div class="task-text">Combine dual signals: weapon detected AND crowd anomaly = critical alert tier</div><div class="task-sub">This dual-signal approach is the key differentiator — mirrors real security systems</div></div></div>
+      <div class="chips"><span class="chip">Live tracking</span><span class="chip">Anomaly detection</span><span class="chip">Dual-signal logic</span></div>
+    </div>
+  </div>
+
+  <div class="phase p4">
+    <div class="phase-header"><span class="phase-badge">Week 5–6</span><span class="phase-title">Risk engine + backend</span><span class="phase-sub">Decision logic · API · logging</span></div>
+    <div class="phase-body">
+      <div class="task"><div class="task-dot"></div><div><div class="task-text">Build rule-based risk evaluator — three severity tiers</div><div class="task-sub">LOW: person only · MEDIUM: weapon detected · HIGH: weapon + crowd anomaly combined</div></div></div>
+      <div class="task"><div class="task-dot"></div><div><div class="task-text">Add template-based explanation generation — no external API needed</div><div class="task-sub">"Knife detected near entrance — 3 persons in proximity — high confidence alert"</div></div></div>
+      <div class="task"><div class="task-dot"></div><div><div class="task-text">Build FastAPI backend — alert endpoint + event ingestion</div></div></div>
+      <div class="task"><div class="task-dot"></div><div><div class="task-text">Set up PostgreSQL — log: timestamp, object class, confidence, risk level, explanation</div><div class="task-sub">PostgreSQL over SQLite — stronger production-readiness signal for portfolio</div></div></div>
+      <div class="chips"><span class="chip">Risk engine</span><span class="chip">Alert API</span><span class="chip">Event log DB</span><span class="chip">Explanations</span></div>
+    </div>
+  </div>
+
+  <div class="phase p5">
+    <div class="phase-header"><span class="phase-badge">Week 7–8</span><span class="phase-title">Dashboard + deployment</span><span class="phase-sub">Ship · document · present</span></div>
+    <div class="phase-body">
+      <div class="task"><div class="task-dot"></div><div><div class="task-text">Build Streamlit dashboard — live video, bounding boxes, risk tier, alert feed, event log</div></div></div>
+      <div class="task"><div class="task-dot"></div><div><div class="task-text">Containerise with Docker — deploy to AWS or GCP</div><div class="task-sub">Aim for a public URL — single most important portfolio asset</div></div></div>
+      <div class="task"><div class="task-dot"></div><div><div class="task-text">Record 3–5 min demo video — show the full loop end to end</div><div class="task-sub">Detection firing → tracking → dual-signal alert → dashboard update → log entry</div></div></div>
+      <div class="task"><div class="task-dot"></div><div><div class="task-text">Write GitHub README — architecture diagram, results table, setup guide, demo link</div></div></div>
+      <div class="task"><div class="task-dot"></div><div><div class="task-text">Draft 3 resume bullet points for Percepta</div><div class="task-sub">Frame around: system built, metrics hit, tech used, real-world relevance</div></div></div>
+      <div class="chips"><span class="chip">Live dashboard</span><span class="chip">Public deploy URL</span><span class="chip">Demo video</span><span class="chip">README</span><span class="chip">Resume bullets</span></div>
+    </div>
+  </div>
+
+  <div class="section-label">Risks to manage</div>
+  <div class="risk-row"><span class="risk-tag risk-high">High</span><div class="risk-text">False positives — umbrellas, pens flagged as knives. Audit this hard in Week 3 before building anything on top of the model.</div></div>
+  <div class="risk-row"><span class="risk-tag risk-high">High</span><div class="risk-text">GPU access stall. Without it Weeks 2–3 collapse. Confirm and run a test training job in Week 1 before anything else.</div></div>
+  <div class="risk-row"><span class="risk-tag risk-med">Medium</span><div class="risk-text">Dataset class imbalance — knife images likely outnumber handgun. Check distribution on merge and use augmentation to balance.</div></div>
+  <div class="risk-row"><span class="risk-tag risk-med">Medium</span><div class="risk-text">Scope creep. Abandoned object detection and restricted zone intrusion are post-MVP only if Weeks 1–6 go cleanly.</div></div>
+</div>
+</body>
+</html>
